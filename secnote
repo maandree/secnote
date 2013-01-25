@@ -1,0 +1,79 @@
+#!/bin/sh
+
+# secnote – Encrypted note taking (but please also use encryption disc, such as LUKS)
+# 
+# Copyright © 2013  Mattias Andrée (maandree@member.fsf.org)
+# 
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+# 
+# [GNU All Permissive License]
+
+
+if [ ! $# = 1 ]; then
+    echo 'Exactly one argument may be passed, the file to edit.'
+    exit 2
+elif [ "$1" = "" ]; then
+    echo 'You not a file as an argument, it will be created if missing.'
+    exit 3
+elif [ "$EDITOR" = "" ]; then
+    echo 'You do not have your editor exported to $EDITOR'
+    exit 4
+elif [ "$GPG_KEY" = "" ]; then
+    echo 'You must export your GPG key ID to $GPG_KEY'
+    exit 4
+fi
+
+
+tempmount="/dev/shm"
+id="${GPG_KEY}"
+file="$1"
+temp="${tempmount}/.$(uuidgen)-$(uuidgen)"
+
+
+if [ ! "$(df -l -P -t tmpfs | grep -- "${tempmount}" | wc -l)" = "1" ]; then
+    echo -e '\e[01;31m'"${tempmount}"' is not a tmpfs.\e[00m' 1>&2
+    exit 10
+fi
+
+if [ ! -f "$file" ]; then
+    echo -e '\e[01;34mCreating file.\e[00m' 1>&2
+    echo -n | gpg --sign --local-user "$id" --encrypt --recipient "$id" > "$file" ||
+        (rm -- "$file" ; exit 1)
+fi
+
+function _shred
+{
+    # but please also use encryption, such as LUKS, on the swap
+    shred --force --iterations=20 --zero --remove -- "$1"
+}
+
+if [ -f "$temp" ]; then
+    _shred "$temp"
+fi
+
+rc=1
+
+touch "$temp" &&
+    chmod 600 "$temp" &&
+    echo -e '\e[01;34mLoading file, '"$1"' will be the only encrypted file.\e[00m' 1>&2 &&
+    gpg --decrypt < "$file" > "$temp" &&
+    $EDITOR "$temp" &&
+    echo -e '\e[01;34mSaving file.\e[00m' 1>&2 &&
+    gpg --sign --local-user "$id" --encrypt --recipient "$id" < "$temp" > "${file}.new" &&
+    mv -- "${file}.new" "$file"
+
+rc=$?
+
+if [ -f "$temp" ]; then
+    _shred "$temp"
+fi
+
+if [ -f "${file}.new" ]; then
+    rm -- "${file}.new"
+fi
+
+exit $rc
+
