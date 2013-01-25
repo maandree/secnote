@@ -23,7 +23,7 @@ elif [ "$EDITOR" = "" ]; then
     exit 4
 elif [ "$GPG_KEY" = "" ]; then
     echo 'You must export your GPG key ID to $GPG_KEY'
-    exit 4
+    exit 5
 fi
 
 
