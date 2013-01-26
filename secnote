@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# secnote – Encrypted note taking (but please also use encryption disc, such as LUKS)
+# secnote – Encrypted note taking (but please also use disc encryption, such as LUKS)
 # 
 # Copyright © 2013  Mattias Andrée (maandree@member.fsf.org)
 # 
