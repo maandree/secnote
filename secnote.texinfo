@@ -48,8 +48,32 @@ without any warranty.
 
 
 @menu
-* License of secnote::               Summary of the license of the program
+* Overview::                  Overview of @command{secnote}
+* License of secnote::        Summary of the license of the program
 @end menu
+
+
+
+@node Overview
+@chapter Overview
+
+@command{secnote} is a command the lets you use encryption
+on your favourite text editor. @command{secnote} runs
+@var{$EDITOR}, which should always be exported as a command
+to start your default text editor, with one file as argument
+that you use when you invoke @command{secnote}.
+
+@command{secnote} uses GNU Privacy Guard for encryption.
+You must have your GPG key ID exported to @var{$GPG_KEY},
+so @command{secnote} knows which keys to use. This key set
+will be used for encryption, decryption and signing.
+
+You should always encrypt all your partitions (except /boot
+of cause), including your swap (if you have one). 
+@command{secnote} is used to harden your privacy incase your
+computers has be compromissed while the partitions are
+mounted.
+
 
 
 
