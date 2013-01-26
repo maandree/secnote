@@ -4,3 +4,17 @@ _/
 .\#*
 *.bak
 *.swp
+/secnote.aux
+/secnote.cp
+/secnote.fn
+/secnote.info.gz
+/secnote.info
+/secnote.ky
+/secnote.log
+/secnote.pdf
+/secnote.ps
+/secnote.dvi
+/secnote.pg
+/secnote.toc
+/secnote.tp
+/secnote.vr
