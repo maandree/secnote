@@ -59,7 +59,7 @@ Texts. A copy of the license is included in the section entitled
 @flushleft
 secnote – Encrypted note taking
 
-Copyright © 2012, 2013  Mattias Andrée (maandree@@member.fsf.org)
+Copyright © 2013  Mattias Andrée (maandree@@member.fsf.org)
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
