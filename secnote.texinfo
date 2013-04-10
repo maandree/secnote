@@ -41,7 +41,7 @@ without any warranty.
 @insertcopying
 @page
 @*@*
-@center{`...'}
+@center `...'
 @end titlepage
 
 @contents
