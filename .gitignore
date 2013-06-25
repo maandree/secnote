@@ -1,9 +1,13 @@
 _/
-*~
 \#*\#
-.\#*
+.*
+!.git*
+*~
 *.bak
 *.swp
+*.swo
+/dist/
+!/dist/*/*/PKGBUILD
 /secnote.aux
 /secnote.cp
 /secnote.fn
