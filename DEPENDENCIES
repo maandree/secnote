@@ -1,1 +1,5 @@
 gnupg
+coreutils
+findutils
+grep
+sh
