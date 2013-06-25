@@ -14,7 +14,7 @@ DATA=/share
 
 PROGRAM=secnote
 BOOK=$(PROGRAM)
-BOOKDIR=./
+BOOKDIR=info/
 
 
 
