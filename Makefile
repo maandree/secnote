@@ -11,9 +11,10 @@
 PREFIX=/usr
 BIN=/bin
 DATA=/share
+PKGNAME=secnote
+COMMAND=secnote
 
-PROGRAM=secnote
-BOOK=$(PROGRAM)
+BOOK=secnote
 BOOKDIR=info/
 
 
@@ -57,16 +58,16 @@ dvi.xz: $(BOOK).dvi.xz
 
 install:
 	mkdir -p "$(DESTDIR)$(PREFIX)$(BIN)"
-	install -m 755 "$(PROGRAM)" "$(DESTDIR)$(PREFIX)$(BIN)/$(PROGRAM)"
+	install -m 755 secnote "$(DESTDIR)$(PREFIX)$(BIN)/$(COMMAND)"
 	mkdir -p "$(DESTDIR)$(PREFIX)$(DATA)/info/"
-	install -m 644 "$(BOOK).info.gz" "$(DESTDIR)$(PREFIX)$(DATA)/info"
+	install -m 644 "$(BOOK).info.gz" "$(DESTDIR)$(PREFIX)$(DATA)/info/$(PKGNAME).info.gz"
 
 uninstall:
-	unlink "$(DESTDIR)$(PREFIX)$(BIN)/$(PROGRAM)"
-	unlink "$(DESTDIR)$(PREFIX)$(DATA)/info/$(BOOK).info.gz"
+	-rm -- "$(DESTDIR)$(PREFIX)$(BIN)/$(PROGRAM)"
+	-rm -- "$(DESTDIR)$(PREFIX)$(DATA)/info/$(BOOK).info.gz"
 
 clean:
-	rm -r *.{t2d,aux,cp,cps,fn,ky,log,pg,pgs,toc,tp,vr,vrs,op,ops,bak,info,pdf,ps,dvi,gz} 2>/dev/null || exit 0
+	-rm -r *.{t2d,aux,cp,cps,fn,ky,log,pg,pgs,toc,tp,vr,vrs,op,ops,bak,info,pdf,ps,dvi,gz} 2>/dev/null
 
 
 .PHONY: clean uninstall install
